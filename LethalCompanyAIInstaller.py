@@ -4,7 +4,7 @@ import platform
 import webbrowser
 
 folder = ""
-def installerfolder():
+def installerfolder(folder_path,install_button):
     """
     Function to select a directory for installation.
 
@@ -27,7 +27,7 @@ def installerfolder():
         install_button.pack(pady=5)
         os.chdir(folder)
     
-def install():
+def install(app):
     """
     Function to install and setup the Lethal Company AI project.
 
@@ -59,11 +59,6 @@ def install():
     os.system("pip install -r requirements.txt")
     os.system("python -m notebook")
     app.destroy()
-    
-#Set Customtkinter appearance and color theme
-ctk.set_appearance_mode("System")
-ctk.set_default_color_theme("blue")
-
 
 def openurl(url):
     """
@@ -80,26 +75,33 @@ def openurl(url):
     """
     webbrowser.open(url)
 
-#Create ctk instance
-app = ctk.CTk()
+def main():
+    #Set Customtkinter appearance and color theme
+    ctk.set_appearance_mode("System")
+    ctk.set_default_color_theme("blue")
+    #Create ctk instance
+    app = ctk.CTk()
 
-#Add title to the installer
-app.title("LethalCompanyAIInstaller")
+    #Add title to the installer
+    app.title("LethalCompanyAIInstaller")
 
-#Initialize all widgets used in the installer
-folder_path = ctk.StringVar(app)
-mlbl = ctk.CTkLabel(app, text="If you have already installed the repo, you can still run this file to update/play (with) the AI (in case it gets updated).").pack(pady=5)
-crlbl = ctk.CTkLabel(app, text="AI made by: syntaxeai").pack()
-btn1 = ctk.CTkButton(app, text="His Video", command=lambda: openurl("https://www.youtube.com/watch?v=poZt_KjCwV4&t")).pack(pady=5)
-btn1 = ctk.CTkButton(app, text="Channel", command=lambda: openurl("https://youtube.com/@synt_axe?sub_confirmation=1")).pack(pady=5)
-btn1 = ctk.CTkButton(app, text="Discord server", command=lambda: openurl("https://discord.com/invite/emgtCVS6Vs")).pack(pady=5)
-crfmlbl = ctk.CTkLabel(app,text="This installer was made by: magicnothief").pack(pady=5)
-folder_button = ctk.CTkButton(app,command=installerfolder, text="Select parent folder for installation/already existing parent folder").pack(pady=5)
-lbl1 = ctk.CTkLabel(master=app,textvariable=folder_path).pack(pady=5)
-install_button = ctk.CTkButton(app,command=install,text="Install/Play")
+    #Initialize all widgets used in the installer
+    folder_path = ctk.StringVar(app)
+    mlbl = ctk.CTkLabel(app, text="If you have already installed the repo, you can still run this file to update/play (with) the AI (in case it gets updated).").pack(pady=5)
+    crlbl = ctk.CTkLabel(app, text="AI made by: syntaxeai").pack()
+    btn1 = ctk.CTkButton(app, text="His Video", command=lambda: openurl("https://www.youtube.com/watch?v=poZt_KjCwV4&t")).pack(pady=5)
+    btn1 = ctk.CTkButton(app, text="Channel", command=lambda: openurl("https://youtube.com/@synt_axe?sub_confirmation=1")).pack(pady=5)
+    btn1 = ctk.CTkButton(app, text="Discord server", command=lambda: openurl("https://discord.com/invite/emgtCVS6Vs")).pack(pady=5)
+    crfmlbl = ctk.CTkLabel(app,text="This installer was made by: magicnothief").pack(pady=5)
+    folder_button = ctk.CTkButton(app,command=lambda:installerfolder(folder_path,install_button), text="Select parent folder for installation/already existing parent folder").pack(pady=5)
+    lbl1 = ctk.CTkLabel(master=app,textvariable=folder_path).pack(pady=5)
+    install_button = ctk.CTkButton(app,command=lambda:install(app),text="Install/Play")
 
-#Set installer default  size
-app.geometry("800x480")
+    #Set installer default  size
+    app.geometry("800x480")
 
-#Start application
-app.mainloop()
+    #Start application
+    app.mainloop()
+
+if __name__ == "__main__":
+    main()
